@@ -4,8 +4,9 @@ commit=$1
 parent=$2
 child=$3
 
-git checkout -b temp
+git branch temp
 git branch -f temp ${parent}
+git checkout temp	
 git commit -m "Recommitting ${commit} between ${parent} and ${child}"
 
 git checkout main
