@@ -2,10 +2,12 @@
 
 parent=$1
 
+# first we create a new branch, move it to parent commit
 git branch temp
 git branch -f temp ${parent}
 git checkout temp
 
+# do some dummy changes and commit
 cd ..
 mkdir Temp
 cd Temp
@@ -14,7 +16,11 @@ git add .
 
 git commit -m "Commit after ${parent}"
 
+# come back to the now diverged main branch and rebase it with 
+# temp branch
 git checkout main
 cd ..
 git rebase temp
+
+# work over, delete temp
 git branch -D temp
