@@ -61,11 +61,12 @@ git checkout feature2
 git rebase -i main
 # Choose C3 in i-mode
 
-git checkout feature3
+git checkout feature1
 git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
 
 git checkout main
 git branch -D feature1
 git branch -D feature2
 git branch -D feature3
+rm -rf A
 #END
