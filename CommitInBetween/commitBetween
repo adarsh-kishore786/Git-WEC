@@ -1,0 +1,20 @@
+#!/bin/bash
+
+parent=$1
+
+git branch temp
+git branch -f temp ${parent}
+git checkout temp
+
+cd ..
+mkdir Temp
+cd Temp
+touch hello
+git add .
+
+git commit -m "Commit after ${parent}"
+
+git checkout main
+cd ..
+git rebase temp
+git branch -D temp
