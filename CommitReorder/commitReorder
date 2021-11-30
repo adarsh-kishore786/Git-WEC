@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# dummy changes here
+mkdir A
+touch A/text.txt
+git add .
+git commit -m "C1"
+
+# Creating the branches then moving them to the root
+git branch feature1
+git branch feature2
+git branch feature3
+git branch -f feature1 $1
+git branch -f feature2 $1
+git branch -f feature3 $1
+
+# making the initial tree
+git checkout feature1
+
+# dummy changes
+mkdir B
+touch B/text.txt
+git add .
+git commit -m "C2"
+
+# same thing for the other two
+
+git checkout feature2
+
+# dummy changes
+mkdir C
+touch C/text.txt
+git add .
+git commit -m "C3"
+
+# making the initial tree
+git checkout feature3
+
+# dummy changes
+mkdir D
+touch D/text.txt
+git add .
+git commit -m "C4"
+
+git rebase feature1
+git checkout feature2
+git rebase feature3
+git branch -f feature1 feature2
+
+git checkout feature1
+git rebase -i main
+# Choose commits C2, C3, C4 in that order in interactive mode
+
+git checkout feature3
+git branch -f feature1 feature1~2
+
+git rebase -i main
+# Choose commit C4 in interactive mode
+
+git checkout feature2
+git rebase -i main
+# Choose C3 in i-mode
+
+git checkout feature3
+git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
+
+git checkout main
+git branch -D feature1
+git branch -D feature2
+git branch -D feature3
+#END
